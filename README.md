@@ -89,7 +89,10 @@ curl -X GET "http://localhost:8080/api/callHistory?page=0&size=10"
 
 docker compose up -d --build
 Levantar los servicios usando Docker Compose:
-docker-compose up -d
+mvn clean install
+docker build -t pstaubr/challengetenpo .
+docker tag pstaubr/challengetenpo pstaubr/challengetenpo:lastest
+docker push pstaubr/challengetenpo:lastest
 Verificar que los contenedores estén corriendo:
 docker ps
 
@@ -115,9 +118,13 @@ https://hub.docker.com/r/pstaubr/challengetenpo
 
 Para verificar que todo está funcionando correctamente:
 
-1. **Asegúrate de que los contenedores estén corriendo**:
+1. **Ejecutar imagen**:
    ```sh
-   docker ps
+   docker-compose up -d
+
+2. **Asegúrate de que los contenedores estén corriendo**:
+   ```sh
+   docker ps   
 
 Envía solicitudes a la API desde Postman:
 
