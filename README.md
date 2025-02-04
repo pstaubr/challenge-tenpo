@@ -42,14 +42,14 @@ PostgreSQL como base de datos y emplea HikariCP para la gestión de conexiones.
 - [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 - [Maven](https://maven.apache.org/)
 - [PostgreSQL](https://www.postgresql.org/download/)
-- [Docker](https://www.docker.com/products/docker-desktop) (opcional)
+- [Docker](https://www.docker.com/products/docker-desktop)
 
 ### Configuración de la Base de Datos
 
 1. Instala y configura PostgreSQL en tu máquina local.
-2. Crea una base de datos llamada `tenpo`:
+2. Crea una base de datos llamada `postgres`:
    ```sql
-   CREATE DATABASE tenpo;
+   CREATE DATABASE postgres;
 
 Configura las credenciales de la base de datos en el archivo application.properties:
 spring.datasource.url=jdbc:postgresql://localhost:5432/tu_bd
@@ -62,8 +62,8 @@ spring.cache.type=simple
 
 Ejecutar el Servicio
 Clona el repositorio:
-git clone https://github.com/tu-usuario/tenpo-api.git
-cd tenpo-api
+git clone https://github.com/pstaubr/challenge-tenpo.git
+cd challenge-tenpo
 
 Compila y ejecuta el proyecto con Maven:
 mvn clean install
@@ -73,34 +73,35 @@ Interactuar con la API
 Puedes interactuar con la API utilizando herramientas como Postman o cURL.
 Endpoints Principales
 Cálculo con Porcentaje Dinámico:
-URL: /api/calculate
+URL: /api/dynamicCalculation
 Método: POST
 Parámetros: num1 (double), num2 (double)
 Ejemplo de Solicitud:
-curl -X POST "http://localhost:8080/api/calculate?num1=5&num2=5"
+curl -X POST "http://localhost:8080/api/dynamicCalculation?num1=5&num2=5"
 Consultar Historial de Llamadas:
-URL: /api/history
+URL: /api/callHistory
 Método: GET
 Parámetros: page (int, opcional), size (int, opcional)
 Ejemplo de Solicitud:
-curl -X GET "http://localhost:8080/api/history?page=0&size=10"
-Construir y publicar la imagen Docker:
-docker build -t your_dockerhub_username/tenpo-api:latest .
-docker push your_dockerhub_username/tenpo-api:latest
+curl -X GET "http://localhost:8080/api/callHistory?page=0&size=10"
+
+### Construir y publicar la imagen Docker:
+
+docker compose up -d --build
 Levantar los servicios usando Docker Compose:
 docker-compose up -d
 Verificar que los contenedores estén corriendo:
-docker-compose ps
+docker ps
 
 ### Detalles sobre cómo interactuar con la API
 
 Endpoints
-POST /api/calculate
+POST /api/dynamicCalculation
 Parámetros:
 num1: Número 1 (double)
 num2: Número 2 (double)
 Respuesta: Resultado del cálculo
-GET /api/history
+GET /api/callHistory
 Parámetros:
 page: Número de página (opcional)
 size: Tamaño de la página (opcional)
@@ -108,13 +109,15 @@ Respuesta: Historial de llamadas
 
 ### Enlace al Docker Hub
 
+https://hub.docker.com/r/pstaubr/challengetenpo
+
 ### Paso 6: Probar la Configuración
 
 Para verificar que todo está funcionando correctamente:
 
 1. **Asegúrate de que los contenedores estén corriendo**:
    ```sh
-   docker-compose ps
+   docker ps
 
 Envía solicitudes a la API desde Postman:
 
